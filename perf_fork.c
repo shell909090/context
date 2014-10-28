@@ -8,23 +8,6 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <sched.h>
-#include <signal.h>
-
-void sighandler_chld(int signum)
-{
-	int pid;
-	if (signum != SIGCHLD) {
-		return;
-	}
-
-	pid = wait(NULL);
-	if (pid == -1 && errno != ECHILD) {
-		perror("waitpid");
-		exit(-1);
-	}
-
-	return;
-}
 
 int main(int argc, char *argv[])
 {
@@ -36,8 +19,6 @@ int main(int argc, char *argv[])
 		return -1;
 	}
 	n = atoi(argv[1]);
-
-	/* signal(SIGCHLD, sighandler_chld); */
 
 	for (i = 0; i < n; i++) {
 		pid = fork();
