@@ -4,27 +4,21 @@
 ## Version: $Id: Makefile,v 0.0 2014/10/27 03:25:19 shell Exp $
 ## Keywords: 
 ## X-URL: 
+# time, cpu time, context switch, read, write, memory, cpu usage.
 
-all: perform_fork
+TIMES=1000000000
+
+all: perform_call
 
 clean:
-	rm -rf perform_fork perform_thread
+	rm -rf perf_call perf_syscall perf_fork perf_thread
 
-perform_fork: perf_fork
-# time, cpu time, context switch, read, write, memory, cpu usage.
-	time -f "%e,%S,%c,%r,%s,%K,%P" ./perf_fork 1000000
-	time -f "%e,%S,%c,%r,%s,%K,%P" ./perf_fork 1000000
-	time -f "%e,%S,%c,%r,%s,%K,%P" ./perf_fork 1000000
+perform_%: perf_%
+	@time -f "%e,%S,%c,%r,%s,%K,%P" ./$< $(TIMES)
+	@time -f "%e,%S,%c,%r,%s,%K,%P" ./$< $(TIMES)
+	@time -f "%e,%S,%c,%r,%s,%K,%P" ./$< $(TIMES)
 
-perf_fork: perf_fork.c
-	gcc -o $@ $^
-
-perform_thread: perf_thread
-	time -f "%e,%S,%c,%r,%s,%K,%P" ./perf_thread 1000000
-	time -f "%e,%S,%c,%r,%s,%K,%P" ./perf_thread 1000000
-	time -f "%e,%S,%c,%r,%s,%K,%P" ./perf_thread 1000000
-
-perf_thread: perf_thread.c
+perf_%: perf_%.c
 	gcc -pthread -o $@ $^
 
 ### Makefile ends here

@@ -1,26 +1,29 @@
-/* @(#)perf_cs.c
+/* @(#)perf_call.c
  */
 
 #include <unistd.h>
 #include <errno.h>
 #include <stdio.h>
-#include <pthread.h>
 
-int pingpong()
+void called()
 {
-	return 0;
+	return;
 }
 
 int main(int argc, char *argv[])
 {
 	int i, n;
-	int st;
+	pid_t pid;
 
 	if (argc < 2) {
-		printf("perf_cs times.\n");
+		printf("perf_getpid times.\n");
 		return -1;
 	}
 	n = atoi(argv[1]);
 
+	for (i = 0; i < n; i++) {
+		called();
+	}
+	
 	return 0;
 }

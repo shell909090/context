@@ -31,9 +31,6 @@ int main(int argc, char *argv[])
 	}
 
 	for (i = 0; i < n; i++) {
-		/* if (i % 1000 == 0) { */
-		/* 	pthread_yield(); */
-		/* } */
 		st = pthread_create(&tid, &attr, thread_main, NULL);
 		if (st != 0) {
 			printf("i: %d.\n", i);
