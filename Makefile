@@ -9,10 +9,10 @@
 TIMES=1000000
 THREADS=2
 
-all: perform_fork
+all: perform_s_fork
 
 clean:
-	rm -rf perf_call perf_syscall perf_fork perf_thread
+	rm -rf s_call s_syscall s_fork t_thread t_cs
 
 perform_yield: py_yield.py
 	python $< 100000000
@@ -20,20 +20,20 @@ perform_yield: py_yield.py
 perform_greenlet: py_greenlet.py
 	python $< 10000000 100
 
-perform_cs: perf_cs
+perform_cs: t_cs
 	@time -f "%e,%S,%c,%r,%s,%K,%P" ./$< $(TIMES) $(THREADS)
 	@time -f "%e,%S,%c,%r,%s,%K,%P" ./$< $(TIMES) $(THREADS)
 	@time -f "%e,%S,%c,%r,%s,%K,%P" ./$< $(TIMES) $(THREADS)
 
-perform_%: perf_%
+perform_%: %
 	@time -f "%e,%S,%c,%r,%s,%K,%P" ./$< $(TIMES)
 	@time -f "%e,%S,%c,%r,%s,%K,%P" ./$< $(TIMES)
 	@time -f "%e,%S,%c,%r,%s,%K,%P" ./$< $(TIMES)
 
-perf_%: perf_%.c
+s_%: s_%.c
 	gcc -o $@ $^
 
-perf_thread: perf_thread.c
+t_%: t_%.c
 	gcc -pthread -o $@ $^
 
 ### Makefile ends here
