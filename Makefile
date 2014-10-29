@@ -14,11 +14,11 @@ all: perform_fork
 clean:
 	rm -rf perf_call perf_syscall perf_fork perf_thread
 
-perform_yield:
-	python perf_yield.py 100000000
+perform_yield: py_yield.py
+	python $< 100000000
 
-perform_greenlet:
-	python perf_greenlet.py 10000000 100
+perform_greenlet: py_greenlet.py
+	python $< 10000000 100
 
 perform_cs: perf_cs
 	@time -f "%e,%S,%c,%r,%s,%K,%P" ./$< $(TIMES) $(THREADS)
