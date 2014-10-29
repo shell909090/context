@@ -1,4 +1,4 @@
-/* @(#)perf_fork.c
+/* @(#)s_fork.c
  */
 
 #include <unistd.h>

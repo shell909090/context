@@ -1,4 +1,4 @@
-/* @(#)perf_thread.c
+/* @(#)t_thread.c
  */
 
 #include <unistd.h>

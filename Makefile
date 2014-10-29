@@ -6,10 +6,10 @@
 ## X-URL: 
 # time, cpu time, context switch, read, write, memory, cpu usage.
 
-TIMES=1000000
-THREADS=2
+TIMES=100000000
+THREADS=1
 
-all: perform_s_fork
+all: perform_t_cs
 
 clean:
 	rm -rf s_call s_syscall s_fork t_thread t_cs
@@ -20,7 +20,7 @@ perform_yield: py_yield.py
 perform_greenlet: py_greenlet.py
 	python $< 10000000 100
 
-perform_cs: t_cs
+perform_t_cs: t_cs
 	@time -f "%e,%S,%c,%r,%s,%K,%P" ./$< $(TIMES) $(THREADS)
 	@time -f "%e,%S,%c,%r,%s,%K,%P" ./$< $(TIMES) $(THREADS)
 	@time -f "%e,%S,%c,%r,%s,%K,%P" ./$< $(TIMES) $(THREADS)

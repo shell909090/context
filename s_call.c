@@ -1,4 +1,4 @@
-/* @(#)perf_call.c
+/* @(#)s_call.c
  */
 
 #include <unistd.h>

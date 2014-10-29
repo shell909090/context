@@ -1,4 +1,4 @@
-/* @(#)perf_cs.c
+/* @(#)t_cs.c
  */
 
 #include <unistd.h>
@@ -16,7 +16,7 @@ static void * thread_main(void *arg)
 {
 	struct counter *c = (struct counter *) arg;
 	for (; c->cur < c->max; c->cur++){
-		pthread_yield();
+		/* pthread_yield(); */
 	}
 	return NULL;
 }
