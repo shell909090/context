@@ -12,11 +12,32 @@ struct counter {
 	long max;
 };
 
-static void * thread_main(void *arg)
+/* 该调用引用全局计数器，一般用于多进程竞争研究。 */
+static void * thread_static(void *arg)
 {
 	struct counter *c = (struct counter *) arg;
 	for (; c->cur < c->max; c->cur++){
+		pthread_yield();
+	}
+	return NULL;
+}
+
+/* 该调用引用本地计数器，用于多线程并发研究。 */
+static void * thread_local(void *arg)
+{
+	int i;
+	struct counter *c = (struct counter *) arg;
+	for (i = 0; i < c->max; i++){
+		/* pthread_yield在glibc中使用ntpl. */
+		/* 后者在nptl/sysdeps/unix/sysv/linux/pthread_yield.c里面直接调用了sched_yield */
+		/* 这是一个内核调用，反应在kernel/sched.c:SYSCALL_DEFINE0(sched_yield)上，最后会调用schedule */
+		/* 因此，这个调用最后会反应到系统调度上去 */
 		/* pthread_yield(); */
+
+		/* usleep底层使用的是nanosleep内核调用，而后者在do_nanosleep中最终会调用schedule */
+		/* 但是整个过程链条很长，当前任务会被标记为TASK_INTERRUPTIBLE，然后挂到timer等待队列上 */
+		/* 因此usleep产生的调度开销会比yield高出很多 */
+		usleep(0);
 	}
 	return NULL;
 }
@@ -48,7 +69,7 @@ int main(int argc, char *argv[])
 	c.max = n;
 
 	for (i = 0; i < k; i++) {
-		st = pthread_create(tid+i, &attr, thread_main, &c);
+		st = pthread_create(tid+i, &attr, thread_local, &c);
 		if (st != 0) {
 			printf("i: %d.\n", i);
 			perror("pthread_create");

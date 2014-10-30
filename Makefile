@@ -4,10 +4,10 @@
 ## Version: $Id: Makefile,v 0.0 2014/10/27 03:25:19 shell Exp $
 ## Keywords: 
 ## X-URL: 
-# time, cpu time, context switch, read, write, memory, cpu usage.
+# time, kernel time, context switch, read, write, memory, cpu usage.
 
-TIMES=100000000
-THREADS=1
+TIMES=1000000
+THREADS=100
 
 all: perform_t_cs
 

@@ -6,9 +6,6 @@
 '''
 import os, sys, errno, socket, signal, threading, logging
 
-# from ctypes import cdll
-# libc = cdll.LoadLibrary('libc.so.6')
-
 # 实际处理程序，只是简单的将输入吐回去
 def echo(conn):
     while True:
