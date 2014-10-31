@@ -52,7 +52,6 @@ class TPool(object):
                 self.q.task_done()
 
     def join(self):
-        # while threads: threads[0].join()
         self.q.join()
 
 def main():

@@ -32,12 +32,12 @@ static void * thread_local(void *arg)
 		/* 后者在nptl/sysdeps/unix/sysv/linux/pthread_yield.c里面直接调用了sched_yield */
 		/* 这是一个内核调用，反应在kernel/sched.c:SYSCALL_DEFINE0(sched_yield)上，最后会调用schedule */
 		/* 因此，这个调用最后会反应到系统调度上去 */
-		/* pthread_yield(); */
+		pthread_yield();
 
 		/* usleep底层使用的是nanosleep内核调用，而后者在do_nanosleep中最终会调用schedule */
 		/* 但是整个过程链条很长，当前任务会被标记为TASK_INTERRUPTIBLE，然后挂到timer等待队列上 */
 		/* 因此usleep产生的调度开销会比yield高出很多 */
-		usleep(0);
+		/* usleep(0); */
 	}
 	return NULL;
 }

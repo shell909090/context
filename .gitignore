@@ -1,3 +1,6 @@
-perf_cs
-perf_fork
-perf_thread
+s_call
+s_syscall
+s_fork
+t_thread
+t_cs
+cs_perform.txt
