@@ -3,4 +3,6 @@ s_syscall
 s_fork
 t_thread
 t_cs
-cs_perform.txt
+g_cs
+g_goroutine
+*.txt
