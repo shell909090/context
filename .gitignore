@@ -2,7 +2,9 @@ s_call
 s_syscall
 s_fork
 t_thread
-t_cs
-g_cs
+t_sleep
+t_yield
 g_goroutine
+g_chan
+g_sched
 *.txt
