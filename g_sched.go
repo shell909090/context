@@ -7,16 +7,6 @@ import (
 	"strconv"
 )
 
-func goroutine_chan(n int, ch chan int, ch_end chan int) {
-	<-ch
-	for i := 0; i < n; i++ {
-		ch <- 1
-		<-ch
-	}
-	ch <- 1
-	ch_end <- 1
-}
-
 func goroutine_gosched(n int, ch_end chan int) {
 	for i := 0; i < n; i++ {
 		runtime.Gosched()
@@ -41,15 +31,9 @@ func main() {
 
 	ch_end := make(chan int, 100)
 
-	// for i := 0; i < c; i++ {
-	// 	go goroutine_gosched(n, ch_end)
-	// }
-
-	ch := make(chan int, 1)
 	for i := 0; i < c; i++ {
-		go goroutine_chan(n, ch, ch_end)
+		go goroutine_gosched(n, ch_end)
 	}
-	ch <- 1
 
 	for i := 0; i < c; i++ {
 		<-ch_end

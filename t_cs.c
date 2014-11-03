@@ -8,21 +8,9 @@
 #include <pthread.h>
 
 struct counter {
-	long cur;
 	long max;
 };
 
-/* 该调用引用全局计数器，一般用于多进程竞争研究。 */
-static void * thread_static(void *arg)
-{
-	struct counter *c = (struct counter *) arg;
-	for (; c->cur < c->max; c->cur++){
-		pthread_yield();
-	}
-	return NULL;
-}
-
-/* 该调用引用本地计数器，用于多线程并发研究。 */
 static void * thread_local(void *arg)
 {
 	int i;
@@ -65,7 +53,6 @@ int main(int argc, char *argv[])
 		return -1;
 	}
 
-	c.cur = 0;
 	c.max = n;
 
 	for (i = 0; i < k; i++) {
