@@ -26,16 +26,16 @@ perform_greenlet: py_greenlet.py
 	python $< 10000000 100
 
 t_sleep.txt: t_sleep
-	python h_cs.py -e 32 -m 10000 ./$< $@
+	python h_cs.py -e 8192 -m 10000 ./$< $@
 
 t_yield.txt: t_yield
-	python h_cs.py -e 32 -m 10000 ./$< $@
+	python h_cs.py -e 16384 -m 10000 ./$< $@
 
 g_chan.txt: g_chan
-	python h_cs.py -c 1 -e 32 -m 1024 ./$< $@
+	python h_cs.py -c 1 -e 1048576 -m 1024 ./$< $@
 
 g_sched.txt: g_sched
-	python h_cs.py -c 1 -e 32 -m 1024 ./$< $@
+	python h_cs.py -c 1 -e 1048576 -m 1024 ./$< $@
 
 perform_%: %
 	@time -f "%e,%S,%c,%r,%s,%K,%P" ./$< $(TIMES)
