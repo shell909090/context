@@ -4,7 +4,9 @@ s_fork
 t_thread
 t_sleep
 t_yield
+t_lock
 g_goroutine
 g_chan
 g_sched
+g_lock
 *.txt

@@ -8,16 +8,16 @@
 
 TIMES=10000000
 
-all: g_chan.txt g_sched.txt t_yield.txt
-# t_sleep.txt
+all: g_chan.txt g_sched.txt g_lock.txt t_sleep.txt t_lock.txt
 
 clean:
-	rm -rf s_call s_syscall s_fork t_thread t_sleep t_yield
-	rm -rf g_chan g_goroutine g_sched
+	rm -rf s_call s_syscall s_fork
+	rm -rf t_thread t_sleep t_yield t_lock
+	rm -rf g_chan g_goroutine g_sched g_lock
 
 cleandata:
-	rm -rf t_sleep.txt t_sleep.png t_yield.txt t_yield.png
-	rm -rf g_chan.txt g_chan.png g_sched.txt g_sched.png
+	rm -rf t_sleep.txt t_sleep.png t_yield.txt t_yield.png t_lock.txt t_lock.png
+	rm -rf g_chan.txt g_chan.png g_sched.txt g_sched.png g_lock.txt g_lock.png
 
 perform_yield: py_yield.py
 	python $< 100000000
@@ -31,11 +31,17 @@ t_sleep.txt: t_sleep
 t_yield.txt: t_yield
 	python h_cs.py -e 16384 -m 10000 ./$< $@
 
+t_lock.txt: t_lock
+	python h_cs.py -e 16384 -m 10000 ./$< $@
+
 g_chan.txt: g_chan
-	python h_cs.py -c 1 -e 1048576 -m 1024 ./$< $@
+	python h_cs.py -c 1 -e 1048576 -m 10000 ./$< $@
 
 g_sched.txt: g_sched
-	python h_cs.py -c 1 -e 1048576 -m 1024 ./$< $@
+	python h_cs.py -c 1 -e 1048576 -m 10000 ./$< $@
+
+g_lock.txt: g_lock
+	python h_cs.py -c 1 -e 1048576 -m 10000 ./$< $@
 
 perform_%: %
 	@time -f "%e,%S,%c,%r,%s,%K,%P" ./$< $(TIMES)
