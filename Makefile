@@ -8,7 +8,7 @@
 
 TIMES=10000000
 
-all: g_chan.txt g_sched.txt g_lock.txt t_sleep.txt t_lock.txt
+all: g_chan.txt g_sched.txt g_lock.txt t_lock.txt t_sleep.txt
 
 clean:
 	rm -rf s_call s_syscall s_fork

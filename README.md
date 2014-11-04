@@ -4,13 +4,18 @@
 
 # 文件命名
 
-s\_打头的是单线程模式c代码，t\_打头的是多线程模式c代码:
+s\_打头的是单线程模式c代码:
 
 * s_call: 调用开销
 * s_syscall: 内核调用开销
 * s_fork: 进程fork开销
+
+t\_打头的是多线程模式c代码:
+
 * t_thread: 线程create开销
-* t_cs: 线程切换开销
+* t_yield: 线程切换开销
+* t_sleep: 线程sleep切换开销
+* t_lock: 线程lock切换开销
 
 py\_打头是python代码:
 
@@ -24,5 +29,6 @@ g\_打头的是golang测试代码:
 * g_chan: chan模式性能
 * g_goroutine: goroutine生成销毁开销(TODO: 注意，未必等待完成)
 * g_sched: sched模式性能
+* g_lock: lock模式性能测试
 
 h\_打头的是辅助代码:

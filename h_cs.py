@@ -9,7 +9,7 @@ import numpy as np
 
 CPUS     = 2
 REPEAT   = 10
-ACTIONS  = 1 << 20
+ACTIONS  = 1 << 24
 MINTIMES = 1 << 10
 
 def t_cs(execf, times, concurrent):
