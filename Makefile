@@ -6,9 +6,9 @@
 ## X-URL: 
 # time, kernel time, context switch, read, write, memory, cpu usage.
 
-TIMES=10000000
+TIMES=1000000
 
-all: g_chan.txt g_sched.txt g_lock.txt t_lock.txt t_sleep.txt
+all: g_lock.txt
 
 clean:
 	rm -rf s_call s_syscall s_fork
@@ -16,7 +16,7 @@ clean:
 	rm -rf g_chan g_goroutine g_sched g_lock
 
 cleandata:
-	rm -rf t_sleep.txt t_sleep.png t_yield.txt t_yield.png t_lock.txt t_lock.png
+	rm -rf t_yield.txt t_yield.png t_lock.txt t_lock.png
 	rm -rf g_chan.txt g_chan.png g_sched.txt g_sched.png g_lock.txt g_lock.png
 
 perform_yield: py_yield.py
@@ -26,22 +26,24 @@ perform_greenlet: py_greenlet.py
 	python $< 10000000 100
 
 t_sleep.txt: t_sleep
-	python h_cs.py -e 8192 -m 10000 ./$< $@
+	@time -f "%e,%S,%c,%r,%s,%K,%P" ./$< $(TIMES) 1
+	@time -f "%e,%S,%c,%r,%s,%K,%P" ./$< $(TIMES) 1
+	@time -f "%e,%S,%c,%r,%s,%K,%P" ./$< $(TIMES) 1
 
 t_yield.txt: t_yield
-	python h_cs.py -e 16384 -m 10000 ./$< $@
+	python h_cs.py -e 16384 ./$< $@
 
 t_lock.txt: t_lock
-	python h_cs.py -e 16384 -m 10000 ./$< $@
+	python h_cs.py -e 16384 ./$< $@
 
 g_chan.txt: g_chan
-	python h_cs.py -c 1 -e 1048576 -m 10000 ./$< $@
+	python h_cs.py -c 1 -e 65536 ./$< $@
 
 g_sched.txt: g_sched
-	python h_cs.py -c 1 -e 1048576 -m 10000 ./$< $@
+	python h_cs.py -c 1 -e 65536 ./$< $@
 
 g_lock.txt: g_lock
-	python h_cs.py -c 1 -e 1048576 -m 10000 ./$< $@
+	python h_cs.py -c 1 -e 65536 ./$< $@
 
 perform_%: %
 	@time -f "%e,%S,%c,%r,%s,%K,%P" ./$< $(TIMES)
