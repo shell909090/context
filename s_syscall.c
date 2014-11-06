@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
 	pid_t pid;
 
 	if (argc < 2) {
-		printf("perf_getpid times.\n");
+		printf("s_syscall times.\n");
 		return -1;
 	}
 	n = atoi(argv[1]);

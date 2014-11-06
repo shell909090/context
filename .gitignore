@@ -1,6 +1,8 @@
 s_call
 s_syscall
 s_fork
+s_context
+s_jmp
 t_thread
 t_sleep
 t_yield

@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
 	int pid;
 
 	if (argc < 2) {
-		printf("perf_fork times.\n");
+		printf("s_fork times.\n");
 		return -1;
 	}
 	n = atoi(argv[1]);

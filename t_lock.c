@@ -35,7 +35,7 @@ int main(int argc, char *argv[])
 	struct counter c;
 
 	if (argc < 3) {
-		printf("perf_cs threads times.\n");
+		printf("t_lock times threads.\n");
 		return -1;
 	}
 	n = atoi(argv[1]);

@@ -28,6 +28,17 @@ def test_noyield(n):
     while i < n:
         i += 1
 
+def test_all(n, output):
+    with open(output, 'w') as fo:
+        k = 1
+        while k < 30:
+            t = timeit.Timer('test_yield_loop(%d, %d)' % (n, k), 'from __main__ import test_yield_loop')
+            a = np.array(t.repeat(6, 1))
+            print(k, a.mean(), a.var())
+            fo.write('%d, %f, %f\n' % (k, a.mean(), a.var()))
+            fo.flush()
+            k += 2
+
 def main():
     n = int(sys.argv[1])
     k = int(sys.argv[2])
@@ -40,5 +51,7 @@ def main():
     t = timeit.Timer('test_noyield(%d)' % n, 'from __main__ import test_noyield')
     a = np.array(t.repeat(6, 1))
     print(a.mean(), a.var())
+
+    # test_all(n, sys.argv[2])
     
 if __name__ == '__main__': main()

@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
 	pthread_t tid;
 
 	if (argc < 2) {
-		printf("perf_thread times.\n");
+		printf("t_thread times.\n");
 		return -1;
 	}
 	n = atoi(argv[1]);

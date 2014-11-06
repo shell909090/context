@@ -6,12 +6,12 @@
 ## X-URL: 
 # time, kernel time, context switch, read, write, memory, cpu usage.
 
-TIMES=1000000
+TIMES=1000000000
 
-all: g_lock.txt
+all: perform_s_jmp
 
 clean:
-	rm -rf s_call s_syscall s_fork
+	rm -rf s_call s_syscall s_fork s_context s_jmp
 	rm -rf t_thread t_sleep t_yield t_lock
 	rm -rf g_chan g_goroutine g_sched g_lock
 
