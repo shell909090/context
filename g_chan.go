@@ -9,7 +9,7 @@ import (
 func goroutine_chan(n int, ch chan int, ch_end chan int) {
 	<-ch
 	for i := 0; i < n; i++ {
-		ch <- 1
+		ch <- 1 // 此处有类似于lock的问题
 		<-ch
 	}
 	ch <- 1

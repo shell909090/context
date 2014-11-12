@@ -6,7 +6,7 @@
 ## X-URL: 
 # time, kernel time, context switch, read, write, memory, cpu usage.
 
-TIMES=1000000000
+TIMES=100000000
 
 all: perform_s_jmp
 
