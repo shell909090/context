@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <errno.h>
 #include <stdio.h>
+#include <sys/syscall.h>
 
 int main(int argc, char *argv[])
 {
@@ -17,7 +18,8 @@ int main(int argc, char *argv[])
 	n = atoi(argv[1]);
 
 	for (i = 0; i < n; i++) {
-		pid = getpid();
+		pid = syscall(SYS_getpid);
+		/* pid = getpid(); */
 	}
 	
 	return 0;
